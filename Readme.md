@@ -48,3 +48,112 @@ some popular modern technologies. This is definitely overkill, but here's a quic
 
 
 1. Windows does not inform
+
+
+## Summary
+Ok, so what did I do?
+
+I wanted to utilize docker to develop a client-side personal website. I was hoping for the website to:
+1. Introduce me
+2. Highlight my skills, work, and interests
+3. Teach me useful things while I make it
+4. Allow me to chronicle my experience for others looking into development on docker.
+
+I also wanted to have the option to deploy my website on University of Washington's student and staff web servers. Server-side rendering wasn't really an option. Finally, I decided to develop on Windows 10. Theoretically, the power of Docker is that the containers are host system agnostic; however, as usual, Windows presents some excentricities that required a bit of tweaking to get everything working.
+
+So, I decided to try out React! Since I've been using Docker recently and wanted to get more comfortable with it, I set about creating a container which I could run and develop on. Docker (and the docker-compose tool) have a decent learning curve; instead of continuing to collect bits and pieces of code from disparate Dockerfiles found on the web, I decided to go back to the basics and understand Docker properly first. I follwed the (insert tutorial) and built a couple different containers using the command-line utility. Then, I wove a couple of these containers together with `docker-compose`, which is basically an recipy for creating multiple containers (Web Server, Database, Web App, for instance) and determining how they can interact with each other. In this project, I'm only creating one container. However, the docker-compose format is simple to understand and more concise, and allows new containers to be added easily as needed, so I went with it anyway.
+
+In general, my advice is to go through the docker tutorials, and realize that docker basically provides a standardized way of setting up an environment for your app to run. While there are conventions for different types of Docker containers, there's no 'single right way' of setting things up; the Dockerfile basically contains the commands you'd run if you were setting up your system from scratch to allow you to run a certain type of program. Many containers start with some sort of Linux image (Images are template for Containers; Containers are running instances of an image) and add to it the necessary components, like NodeJS or Python or specific linux packages. The Dockerfile formalizes this process; the docker-compose.yml file provides a different format for specifying docker containers, and facilitates making a network of them. One container might be running a database, another might run some API backend, and a third might run a client application - this would be all specified in the docker-compose.yml file. What helped me was looking at the Dockerfiles for the official Docker repository. For example, compare the Dockerfile for an Apache install (https://hub.docker.com/_/httpd/) on Debian (https://github.com/docker-library/httpd/blob/6d50d7f89f4d8bc6a6a3f86d892e254f4d6bfd8b/2.4/Dockerfile) vs. Alpine linux (https://github.com/docker-library/httpd/blob/7976cabe162268bd5ad2d233d61e340447bfc371/2.4/alpine/Dockerfile).
+
+### Setting up a Docker Container for React Development
+(what you should know:)
+
+After playing around with Docker and React and reading through lots of different tutorials, I figured out the basic requirements of a React Dev container. I planned on using the create-react-app tool (bootstrapping?) to create the frame of my website. This tool can be installed using `npm`, so I based my container on an image of linux with nodejs installed: https://hub.docker.com/_/node/.
+
+Here's the Dockerfile for building the image:
+
+And here's my `docker-compose.yml` file:
+``
+
+How to build and run the docker container:
+
+```
+```
+
+### Connecting to Container through Interactive shell
+(what you should know:)
+In order to use the docker container as a development machine, I had to be able to connect to it through an interactive bash shell. The following lines in the docker-compose file allow such access:
+```
+```
+
+Once the container is up and running (check `docker ps`), you can connect to it like this:
+
+### Creating a React App
+With the docker container up and running, I could connect to it and start developing.
+
+The Dockerfile installs the create-react-app tool with this command:
+``
+
+The Dockerfile also creates and sets the working directory (``), and then treats it as a Volume by mapping it to a physical location on the
+Host Machine. This is done by the docker-compose line ``.
+
+### Volumes - key to development on Docker
+(what to know:)
+Volumes persist as docker containers are torn down and built up; this is crucial for development, since a non-persistant file system would wipe any development each time the container was restarted. Using volumes (see tutorial) allows me to have a project open on my host machine, map the location of the project as a Volume in a docker container, edit the code with tools on the Host machine, and provide the container access to the new changes.
+
+#### Instant Feedback not so easy.
+I like to see immediate effects of changes I make to the codebase; to get this set up correctly, I decided to use https://github.com/gaearon/react-hot-loader (motivated by the following tutorial: ). Running a react app made with (createetc) is done with the `node start` command; This command compiles the React code using Webpack?? and starts a Webpack?? server. The code is theoretically recompiled each time a file changes. However, on Windows, Docker volumes don't have this capability; I was modifying files on the Host machine, and the container was not getting notified that anythign changed. To overcome this, I used this utility: https://github.com/merofeev/docker-windows-volume-watcher.
+
+I installed it (show commands), and then ran it after starting the container. here are the Powershell commands:
+```
+docker-compose up -d
+
+# Ensure container is running and get name
+docker ps
+
+# Run detached volume watcher:
+Start-Process -NoNewWindow docker-volume-watcher mysite
+
+# OR if you want to run volume watcher in another Powershell and monitor it's behavior:
+docker-volume-watcher mysite -v
+
+# Connect to the container using interactive shell:
+docker exec -it mysite bash
+```
+
+
+When you connect to the container (``), you can immediately use the `create-react-app` tool to create your app:
+```
+```
+
+### Installing Dependencies
+Since the `` tool uses yarn for dependency management, I
+
+### Ejecting app
+
+#### node_modules location
+Gave me lot's of trouble, and still annoying. I wanted to separate the app code from the node_modules mess; thoguht of making separate volume for node_modules outside of the app directory. (Outline what you looked into, and new idea of mounting two volumes.)
+
+#### Folder deletion permissions/issues
+
+### Developing the App
+- Follow the conventions from create app
+- eject it
+- Folder structure: link to overview (components and containers; discuss flexibility)
+- add packages; modify app structure to enable them to works
+  * Router
+  * hot reload
+  * bootstrap + reactstrap
+- Modify the page Template
+- Link required css and image files
+- Create your first components!s
+
+### Running the App
+- Start using 'npm start' command
+- Build new image for development:
+- Access using localhost
+- Install dev tools
+
+### Deploying the App
+- Static server: npm run build
+- Docker Production container:
