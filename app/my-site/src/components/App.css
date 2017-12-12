@@ -37,8 +37,8 @@ section {
   }
 }
 .filler {
-  height: 160px;
-} 
+  height: 250px;
+}
 .overlay {
   position: absolute;
   width: 100%;
@@ -48,7 +48,7 @@ section {
   background: #000;
   z-index: 2;
   opacity: 0.3;
-  filter: alpha(opacity=30);
+  /* filter: alpha(opacity=30);*/
 }
 .heading {
   text-align: center;

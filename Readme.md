@@ -25,3 +25,26 @@ some popular modern technologies. This is definitely overkill, but here's a quic
 5. https://medium.com/@baphemot/understanding-react-deployment-5a717d4378fd
 6. Many tedious google searches to find and digest stackoverflow answers, github issue threads, etc.
 7. (so many more to list)
+
+### The Process
+
+
+#### Learning to Use (and even enjoy) Docker and Docker Compose
+
+#### Setting up a React Development Container
+(and overcoming many frustrations)
+
+##### Volumes: Key to developing in a docker container
+
+##### Windows volumes: ensuring file monitorung works
+
+##### Setting up Docker container for interactive shell access
+
+##### Dealing with required packages using Yarn
+
+##### React Router: non-static routes!
+
+##### React Hot Reload: See your changes immediately!
+
+
+1. Windows does not inform
