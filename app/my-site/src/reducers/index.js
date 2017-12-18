@@ -1,5 +1,5 @@
-import tasks from './tasks';
+import posts from './posts';
 
 export default {
-  tasks
+  posts  
 };

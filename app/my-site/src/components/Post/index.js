@@ -14,6 +14,10 @@ export default class extends React.Component {
       id, title, content
     } = this.props;
 
-    return <h1>Post #{id}: {title}</h1>
-      <ReactMarkdown source={content} />;
+    return <div id='post'>
+      <h1>Post #{id}: {title}</h1>
+      <ReactMarkdown source={content} />
+    </div>;
+
+  }
 }

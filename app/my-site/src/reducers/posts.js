@@ -20,8 +20,7 @@ const initialState = Immutable.fromJS({
   nav: {
     isOpen: false
   },
-    name: "Test Subject 01"
-  }
+  name: "Test Subject 01"
 });
 
 /**
@@ -47,7 +46,7 @@ const POST_ADD = (domain, action) => {
  * @returns {bool}
  */
 const NAV_TOGGLE = (domain) => {
-  return domain.updateIn([nav, isOpen], isOpen => !isOpen);
+  return domain.updateIn(['nav', 'isOpen'], isOpen => !isOpen);
 }
 
 //

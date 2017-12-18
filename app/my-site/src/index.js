@@ -10,9 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppContainer>
-      <Component />
-    </AppContainer>
+    <App />
   </Provider>,
   document.getElementById('app')
 );

@@ -13,11 +13,17 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 // import Contact from './Contact';
 // import About from './About';
 //
+import {
+  postAdd,
+  navToggle
+} from '../actions';
+import selector from '../selector';
 
-import TopNav from './TopNav';
+import TopNav from '../components/TopNav';
 import Post from '../components/Post';
 
 import './style.css';
+
 // TODO: Render Post Container with props!
 
 class App extends React.Component{
@@ -33,45 +39,21 @@ class App extends React.Component{
   render () {
     const {
       posts,
-      navOpen,
       name,
-      navIsOpen,
-      name
-
+      navOpen
     } = this.props;
 
     return <div id='viewport'>
       <Router>
         <div>
-          <TopNavContainer isOpen={navIsOpen}/>
+          <TopNav isOpen={navOpen} name={name}/>
           <main className='container-fluid' role='main'>
             <Route path="/posts" component={Post} />
           </main>
         </div>
-      </Router>;
+      </Router>
+    </div>
   }
-);
+};
 
 export default connect(selector)(App);
-
-// }
-//   <div>
-//     <Router>
-//       <div>
-//         <TopNavContainer />
-//         <main className='container-fluid' role='main'>
-//           <Route path="/01-intro" component={IntroContainer} />
-//           <Route path="/02-profile" component={Profile} />
-//           <Route path="/03-cv" component={Cv} />
-//           <Route path="/04-research" component={Research} />
-//           <Route path="/05-gallery" component={Gallery} />
-//           <Route path="/06-contact" component={Contact} />
-//           <Route path="/07-about" component={About} />
-//           <Route path="/posts" component={PostContainer} />} />
-//         </main>
-//       </div>
-//     </Router>
-//   </div>
-// );
-
-// export default App;
