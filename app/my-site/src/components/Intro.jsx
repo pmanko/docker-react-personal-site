@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import {connect} from 'react-redux'; 
 import bg from '../assets/images/macbook-juice.jpg';
 
 const Intro = ({name}) =>

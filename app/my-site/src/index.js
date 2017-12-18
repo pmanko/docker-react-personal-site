@@ -13,12 +13,13 @@ const store = createStore(reducer);
 store.dispatch({
   type: 'SET_STATE',
   state: {
-    content: mdContent,
+    content: "# Test Title",
     nav: {
-      isOpen: false
+     isOpen: false
     },
     name: "Test Subject 01"
   }
+
 });
 
 console.log(mdContent);

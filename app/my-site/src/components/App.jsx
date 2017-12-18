@@ -10,7 +10,7 @@ import {
 
 
 import './App.css';
-import Intro from './Intro';
+import IntroContainer from './Intro';
 import Cv from './Cv';
 import Profile from './Profile';
 import Research from './Research';
@@ -20,7 +20,7 @@ import About from './About';
 import TopNavContainer from './TopNav';
 
 // import PostContainer from './Post';
-import Post from './Post';
+import PostContainer from './Post';
 
 // const md = require("raw!../posts/20171216.md");
 
