@@ -1,17 +1,19 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import Immutable from 'immutable';
 const ReactMarkdown = require('react-markdown');
 
+export default class extends React.Component {
+  static propTypes = {
+    id: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string.isRequired,
+    content: React.PropTypes.string.isRequired,
+  };
 
-const Post = ({content}) =>
-  <ReactMarkdown source={content} />
+  render () {
+    const {
+      id, title, content
+    } = this.props;
 
-export default Post;
-
-function mapStateToProps(state) {
-  return {
-    content: state.get('content')
-  }
+    return <h1>Post #{id}: {title}</h1>
+      <ReactMarkdown source={content} />;
 }
-
-export const PostContainer = connect(mapStateToProps)(Post);
