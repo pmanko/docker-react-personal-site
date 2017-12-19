@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "redux-create-reducer": "^1.1.1"
+  }
+}
